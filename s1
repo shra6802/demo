@@ -1,0 +1,57 @@
+//Slip 1
+import java.io.*;
+import java.util.Scanner;
+
+public class LowerCaseDecoratorExample {
+public static void main(String[] args) throws IOException {
+Scanner scanner = new Scanner(System.in);
+System.out.print("Enter text: ");
+String input = scanner.nextLine();
+InputStream inputStream = new ByteArrayInputStream(input.getBytes());
+BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+
+OutputStreamWriter writer = new OutputStreamWriter(System.out);
+int ch;
+while ((ch = reader.read()) != -1) {
+writer.write(Character.toLowerCase(ch));
+}
+writer.flush();
+reader.close();
+writer.close();
+}
+}
+
+IOT
+#include <ESP8266WiFi.h> 
+void setup() {
+ Serial.begin(115200);
+ WiFi.disconnect(); 
+ delay(200); 
+ Serial.println("***** WiFi Scan Started *****");
+}
+void loop() {
+ int n = WiFi.scanNetworks();
+ Serial.println("Scan done");
+ if (n == 0)
+ Serial.println("No Network Found"); 
+else
+ {
+ Serial.print(n);
+ Serial.println(" Networks found");
+ for (int i = 0; i < n; ++i)
+ {
+ Serial.print(i + 1); 
+ Serial.print(": ");
+ Serial.print(WiFi.SSID(i)); 
+ Serial.print(" (");
+ Serial.print(WiFi.RSSI(i)); 
+ Serial.print(") MAC:");
+ Serial.print(WiFi.BSSIDstr(i));
+ Serial.println((WiFi.encryptionType(i) == ENC_TYPE_NONE)? " Unsecured" : " Secured" 
+);
+ delay(10);
+ }
+ }
+ Serial.println("");
+ delay(6000); 
+}

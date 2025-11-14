@@ -1,0 +1,60 @@
+sadp
+public class Main {
+public static void main(String ar[]) {
+Test1 t = new Test1();
+Test1 t2 = new Test1();
+Test1 t3 = new Test1();
+Thread tt = new Thread(t);
+Thread tt2 = new Thread(t2);
+Thread tt3 = new Thread(t3);
+Thread tt4 = new Thread(t);
+Thread tt5 = new Thread(t);
+tt.start();
+tt2.start();
+tt3.start();
+tt4.start();
+tt5.start();
+}
+}
+final class Test1 implements Runnable {
+@Override
+public void run() {
+for (int i = 0; i < 5; i++) {
+System.out.println(Thread.currentThread().getName() + " : " +
+Single.getInstance().hashCode());
+}
+}
+}
+class Single {
+private final static Single sing = new Single();
+private Single() {
+}
+public static Single getInstance() {
+return sing;
+}
+}
+
+IOT
+int trigPin = D4;
+int echoPin = D8;
+void setup()
+{
+ pinMode(trigPin, OUTPUT); 
+pinMode(echoPin, INPUT);
+ Serial.begin(9600);
+}
+void loop()
+{ 
+digitalWrite(trigPin, LOW);
+delayMicroseconds(2);
+
+digitalWrite(trigPin, HIGH);  
+delayMicroseconds(10); 
+
+digitalWrite(trigPin, LOW); 
+int duration = pulseIn(echoPin, HIGH); 
+int distance = duration * 0.034 / 2;
+Serial.print("Distance in cm is: ");
+Serial.println(distance); 
+delay(100);
+}

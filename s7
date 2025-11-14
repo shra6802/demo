@@ -1,0 +1,160 @@
+SADP 
+interface Command {
+public void execute();
+}
+class CeilingFan {
+public void on(){
+System.out.println("Ceiling Fan is on");
+}
+public void off()
+{
+System.out.println("Ceiling Fan is off");
+}
+}
+class CeilingFanOnCommand implements Command {
+CeilingFan c;
+public CeilingFanOnCommand(CeilingFan l) {
+this.c = l;
+}
+public void execute() {
+c.on();
+}
+}
+class CeilingFanOffCommand implements Command {
+CeilingFan c;
+public CeilingFanOffCommand(CeilingFan l) {
+this.c = l;
+}
+public void execute() {
+c.off();
+}
+}
+class SimpleRemoteControl {
+Command slot;
+public SimpleRemoteControl() {}
+public void setCommand(Command command) {
+slot = command;
+}
+public void buttonWasPressed() {
+slot.execute();
+}
+}
+public class Main {
+public static void main(String[] args) {
+SimpleRemoteControl remote = new SimpleRemoteControl();
+CeilingFan ceilingFan=new CeilingFan();
+CeilingFanOnCommand ceilingFanOn =new CeilingFanOnCommand(ceilingFan);
+remote.setCommand(ceilingFanOn);
+remote.buttonWasPressed();
+CeilingFanOffCommand ceilingFanOff =new CeilingFanOffCommand(ceilingFan);
+remote.setCommand(ceilingFanOff);
+remote.buttonWasPressed();
+}
+}
+
+2nd code option 
+
+interface Command {
+    void execute();
+    void undo();
+
+class CeilingFan {
+    public void on() {
+        System.out.println("Ceiling Fan is ON");
+    }
+    public void off() {
+        System.out.println("Ceiling Fan is OFF");
+    }
+}
+
+class CeilingFanOnCommand implements Command {
+    CeilingFan fan;
+
+    public CeilingFanOnCommand(CeilingFan fan) {
+        this.fan = fan;
+    }
+
+    public void execute() {
+        fan.on();
+    }
+
+    public void undo() {
+        fan.off();
+    }
+}
+
+class CeilingFanOffCommand implements Command {
+    CeilingFan fan;
+
+    public CeilingFanOffCommand(CeilingFan fan) {
+        this.fan = fan;
+    }
+
+    public void execute() {
+        fan.off();
+    }
+
+    public void undo() {
+        fan.on();
+    }
+}
+
+class SimpleRemoteControl {
+    Command slot;
+
+    public void setCommand(Command command) {
+        slot = command;
+    }
+
+    public void buttonWasPressed() {
+        slot.execute();
+    }
+
+    public void undoButtonWasPressed() {
+        slot.undo();
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        SimpleRemoteControl remote = new SimpleRemoteControl();
+        CeilingFan ceilingFan = new CeilingFan();
+
+       
+        CeilingFanOnCommand fanOn = new CeilingFanOnCommand(ceilingFan);
+        remote.setCommand(fanOn);
+        remote.buttonWasPressed();     
+        remote.undoButtonWasPressed(); 
+
+       
+        CeilingFanOffCommand fanOff = new CeilingFanOffCommand(ceilingFan);
+        remote.setCommand(fanOff);
+        remote.buttonWasPressed();   
+        remote.undoButtonWasPressed(); 
+    }
+}
+
+IOT 
+
+#define LDR_PIN A0 // LDR connected to analog pin A0
+#define LED_PIN D4 // LED connected to digital pin D4 (GPIO2)
+void setup() {
+ Serial.begin(115200); // Start serial monitor 
+ pinMode(LED_PIN, OUTPUT); // Set LED pin as output
+}
+void loop() 
+{ 
+ int ldrValue = analogRead(LDR_PIN); // Read analog value from LDR
+ Serial.print("LDR Value: ");
+ Serial.println(ldrValue);
+Lower value = brighter environment 
+int threshold = 500;
+ if (ldrValue < threshold) 
+ { 
+ digitalWrite(LED_PIN, LOW); 
+ LED (LOW = OFF for D4 on NodeMCU)
+ } else {
+ digitalWrite(LED_PIN, HIGH); 
+ }
+ delay(500); 
+}
